@@ -1,0 +1,6 @@
+- name: Build the stack
+ run: docker-compose -f docker-compose-v3.yml up -d
+ - name: Run e2e tests with cypress
+ uses: cypress-io/github-action@v6
+ - name: Stop the stack
+ run: docker-compose -f docker-compose-v3.yml down
