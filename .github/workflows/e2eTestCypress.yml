@@ -32,9 +32,6 @@ jobs:
       - name: Build the stack
         run: docker compose -f docker-compose.yml up -d
 
-      - name: Check DB data
-        run: curl http://localhost:8000/users
-
       - name: Run e2e tests with cypress
         uses: cypress-io/github-action@v6
         with:
