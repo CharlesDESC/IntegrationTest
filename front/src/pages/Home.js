@@ -8,6 +8,9 @@ export const Home = () => {
 	useEffect(() => {
 		async function countUsers() {
 			try {
+				console.log("====================================");
+				console.log("Fetching user count from:", `${SERVER_URL}/users/public`);
+				console.log("====================================");
 				const response = await fetch(`${SERVER_URL}/users/public`);
 				const data = await response.json();
 				setUsersCount(data.utilisateurs.length);
