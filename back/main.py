@@ -17,8 +17,7 @@ app.add_middleware(
 
 @app.get("/")
 async def hello_world():
-
-    return os.getenv("MYSQL_DATABASE"),
+    return "Hello world"
 
 
 @app.get("/users/public")
