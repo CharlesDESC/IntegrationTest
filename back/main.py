@@ -24,6 +24,11 @@ conn = mysql.connector.connect(
 )
 
 
+@app.get("/")
+async def hello_world():
+    return "Hello world"
+
+
 @app.get("/users/public")
 async def get_users():
     cursor = conn.cursor()
