@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export const Home = () => {
 	const [usersCount, setUsersCount] = useState([]);
-	const port = process.env.REACT_APP_SERVER_PORT;
 
 	useEffect(() => {
 		async function countUsers() {
 			try {
-				const response = await fetch(`http://localhost:${port}/users/public`);
+				const response = await fetch(`${SERVER_URL}/users/public`);
 				const data = await response.json();
 				setUsersCount(data.utilisateurs.length);
 			} catch (error) {
@@ -15,7 +16,7 @@ export const Home = () => {
 			}
 		}
 		countUsers();
-	}, [port]);
+	}, []);
 	return (
 		<header className='App-header'>
 			<h1>Users manager</h1>
