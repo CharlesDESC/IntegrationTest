@@ -62,6 +62,15 @@ jobs:
         working-directory: ./front
         run: npm run build
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./front/build
+          if-no-files-found: error
+
   deploy_pages:
     environment:
       name: github-pages
