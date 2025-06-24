@@ -4,7 +4,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-origins = ["http://localhost:3000"]
+origins = [
+    "http://localhost:3000",
+    "https://charlesdesc.github.io"
+]
 
 app.add_middleware(
     CORSMiddleware,
