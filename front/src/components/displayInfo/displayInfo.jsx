@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export const DisplayInfo = () => {
 	const [users, setUsers] = useState([]);
@@ -6,7 +7,7 @@ export const DisplayInfo = () => {
 
 	const fetchUsers = async () => {
 		try {
-			const usersResponse = await fetch("http://localhost:8000/users/private", {
+			const usersResponse = await fetch(`${SERVER_URL}/users/private`, {
 				headers: {
 					"X-Admin": "true",
 				},
@@ -31,7 +32,7 @@ export const DisplayInfo = () => {
 			return;
 
 		try {
-			const response = await fetch(`http://localhost:8000/users/${userId}`, {
+			const response = await fetch(`${SERVER_URL}/users/${userId}`, {
 				method: "DELETE",
 			});
 			if (!response.ok) {

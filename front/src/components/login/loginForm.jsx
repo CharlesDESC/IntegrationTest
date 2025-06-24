@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { DisplayInfo } from "../displayInfo/displayInfo";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export const LoginForm = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -14,7 +16,7 @@ export const LoginForm = () => {
 		setLoading(true);
 
 		try {
-			const response = await fetch("http://localhost:8000/login", {
+			const response = await fetch(`${SERVER_URL}/login`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ username, password }),
