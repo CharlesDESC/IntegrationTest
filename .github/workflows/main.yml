@@ -11,19 +11,16 @@ on:
 
 jobs:
   build_test:
-    permissions: # Job-level permissions configuration starts here
-      contents: write # 'write' access to repository contents
-      pull-requests: write # 'write' access to pull requests
-    # The type of runner that the job will run on
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [21.x]
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -61,27 +58,22 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  # Deploy job
+      - name: Build React App
+        working-directory: ./front
+        run: npm run build
+
   deploy_pages:
-    # Deploy to the github-pages environment
     environment:
       name: github-pages
       url: ${{steps.deployment.outputs.page_url}}
     runs-on: ubuntu-latest
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write # to deploy to Pages
-      id-token: write # to verify the deployment originates from an appropriate source
+      pages: write
+      id-token: write
 
-    # Add a dependency to the build job
     needs: build_test
-    # Specify runner + deployment step
+
     steps:
-      #  - name: Set env
-      #    run: |
-      #      npm i -g semver
-      #      echo "GITHUB_VERSION_BUILD=$(echo $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}))" >> $GITHUB_ENV
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
