@@ -1,6 +1,6 @@
 describe("Home page spec", () => {
 	it("deployed react app to localhost", () => {
-		cy.visit("http://localhost:3000");
+		cy.visit("http://localhost:3000/IntegrationTest/");
 		cy.contains("Total users:");
 	});
 });
