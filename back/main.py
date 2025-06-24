@@ -1,6 +1,6 @@
 import mysql.connector
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -10,8 +10,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=[""],
-    allow_headers=[""],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Create a connection to the database
@@ -70,3 +70,14 @@ async def delete_user(user_id: int):
         return {'message': 'User not found'}, 404
     print("User deleted successfully")
     return {'message': 'User deleted successfully'}
+
+
+@app.post("/login")
+async def login(data: dict):
+    cursor = conn.cursor()
+    query = "SELECT is_admin FROM user WHERE username = %s AND password = %s"
+    cursor.execute(query, (data['username'], data['password']))
+    result = cursor.fetchone()
+    if not result:
+        raise HTTPException(status_code=401, detail="Identifiants invalides")
+    return {"is_admin": bool(result[0])}

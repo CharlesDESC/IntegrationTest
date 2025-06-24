@@ -5,18 +5,50 @@ export const RegisterForm = ({ onSubmit }) => {
 		username: "",
 		email: "",
 		password: "",
+		is_admin: false,
 	});
+
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
+
 		if (onSubmit) {
-			onSubmit(form);
+			await onSubmit(form);
+			setForm({ username: "", email: "", password: "" });
+			setLoading(false);
+			return;
 		}
-		setForm({ username: "", email: "", password: "" });
+
+		try {
+			const response = await fetch("http://localhost:8000/users", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(form),
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				alert(
+					"Erreur lors de l'inscription : " +
+						(errorData.message || response.statusText)
+				);
+			} else {
+				alert("Inscription réussie !");
+				setForm({ username: "", email: "", password: "" });
+			}
+		} catch (error) {
+			alert("Erreur réseau : " + error.message);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -31,6 +63,7 @@ export const RegisterForm = ({ onSubmit }) => {
 						onChange={handleChange}
 						required
 						autoComplete='username'
+						disabled={loading}
 					/>
 				</label>
 			</div>
@@ -44,6 +77,7 @@ export const RegisterForm = ({ onSubmit }) => {
 						onChange={handleChange}
 						required
 						autoComplete='email'
+						disabled={loading}
 					/>
 				</label>
 			</div>
@@ -57,10 +91,13 @@ export const RegisterForm = ({ onSubmit }) => {
 						onChange={handleChange}
 						required
 						autoComplete='new-password'
+						disabled={loading}
 					/>
 				</label>
 			</div>
-			<button type='submit'>Register</button>
+			<button type='submit' disabled={loading}>
+				{loading ? "En cours..." : "Register"}
+			</button>
 		</form>
 	);
 };
