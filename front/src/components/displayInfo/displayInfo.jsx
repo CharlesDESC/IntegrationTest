@@ -7,9 +7,6 @@ export const DisplayInfo = () => {
 
 	const fetchUsers = async () => {
 		try {
-			console.log("====================================");
-			console.log(`Fetching users from ${SERVER_URL}/users/private`);
-			console.log("====================================");
 			const usersResponse = await fetch(`${SERVER_URL}/users/private`, {
 				headers: {
 					"X-Admin": "true",
