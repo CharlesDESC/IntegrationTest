@@ -14,15 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Create a connection to the database
-conn = mysql.connector.connect(
-    database=os.getenv("MYSQL_DATABASE"),
-    user=os.getenv("MYSQL_ROOT_USER"),
-    password=os.getenv("MYSQL_ROOT_PASSWORD"),
-    port=3306,
-    host=os.getenv("MYSQL_HOST")
-)
-
 
 @app.get("/")
 async def hello_world():
@@ -31,6 +22,13 @@ async def hello_world():
 
 @app.get("/users/public")
 async def get_users():
+    conn = mysql.connector.connect(
+        database=os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_ROOT_USER"),
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        port=3306,
+        host=os.getenv("MYSQL_HOST")
+    )
     cursor = conn.cursor()
     sql_select_Query = "select username from user"
     cursor.execute(sql_select_Query)
@@ -43,6 +41,13 @@ async def get_users():
 
 @app.get("/users/private")
 async def get_private_users():
+    conn = mysql.connector.connect(
+        database=os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_ROOT_USER"),
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        port=3306,
+        host=os.getenv("MYSQL_HOST")
+    )
     cursor = conn.cursor()
     sql_select_Query = "SELECT id, username, email, is_admin FROM user"
     cursor.execute(sql_select_Query)
@@ -55,6 +60,13 @@ async def get_private_users():
 
 @app.post("/users")
 async def create_user(user: dict):
+    conn = mysql.connector.connect(
+        database=os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_ROOT_USER"),
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        port=3306,
+        host=os.getenv("MYSQL_HOST")
+    )
     cursor = conn.cursor()
     sql_insert_Query = "INSERT INTO user (username, email, password, is_admin) VALUES (%s, %s, %s, %s)"
     values = (user['username'], user['email'],
@@ -67,6 +79,13 @@ async def create_user(user: dict):
 
 @app.delete("/users/{user_id}")
 async def delete_user(user_id: int):
+    conn = mysql.connector.connect(
+        database=os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_ROOT_USER"),
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        port=3306,
+        host=os.getenv("MYSQL_HOST")
+    )
     cursor = conn.cursor()
     sql_delete_Query = "DELETE FROM user WHERE id = %s"
     cursor.execute(sql_delete_Query, (user_id,))
@@ -79,6 +98,13 @@ async def delete_user(user_id: int):
 
 @app.post("/login")
 async def login(data: dict):
+    conn = mysql.connector.connect(
+        database=os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_ROOT_USER"),
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        port=3306,
+        host=os.getenv("MYSQL_HOST")
+    )
     cursor = conn.cursor()
     query = "SELECT is_admin FROM user WHERE username = %s AND password = %s"
     cursor.execute(query, (data['username'], data['password']))
