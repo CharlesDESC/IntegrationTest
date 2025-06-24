@@ -15,7 +15,7 @@ export const Home = () => {
 			}
 		}
 		countUsers();
-	}, []);
+	}, [port]);
 	return (
 		<header className='App-header'>
 			<h1>Users manager</h1>
