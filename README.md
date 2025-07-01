@@ -1,7 +1,16 @@
-Lien Vercel backend : integration-test-gamma.vercel.app
-Lien github Pages frontend : https://charlesdesc.github.io/IntegrationTest/
+# Projet Integration Test
 
-Il y a 3 route, elle sont disponible grâce au header.
-La page d'acceuil permet de voir le nombre d'utilisateurs et les donnée. Les infos sont minimal.
+## Liens utiles
 
-Pour voir tout les utilisateur avec leur informations plus en details, il faut ce connécté sur la route /users. De la un compte admin est demander : user : testAdmin, mdp : testPass
+- **Backend (Vercel)** : [integration-test-gamma.vercel.app](https://integration-test-gamma.vercel.app)  
+- **Frontend (GitHub Pages)** : [https://charlesdesc.github.io/IntegrationTest/](https://charlesdesc.github.io/IntegrationTest/)
+
+## Description
+
+Ce projet comprend 3 routes accessibles via le header.
+
+- La **page d'accueil** affiche le nombre d'utilisateurs ainsi que des données minimalistes.
+- Pour consulter la liste complète des utilisateurs avec leurs informations détaillées, il faut se connecter via la route `/users`.
+- L'accès à cette route nécessite un compte administrateur :
+  - **Utilisateur** : `testAdmin`
+  - **Mot de passe** : `testPass`
