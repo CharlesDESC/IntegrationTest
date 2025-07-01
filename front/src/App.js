@@ -1,7 +1,7 @@
 import "./App.css";
-import { Home } from "./pages/Home";
-import { Register } from "./pages/Register";
-import { Users } from "./pages/Users";
+import { Home } from "./pages/Home/Home";
+import { Register } from "./pages/Register/Register";
+import { Users } from "./pages/Users/Users";
 import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
