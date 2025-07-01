@@ -10,7 +10,7 @@ function App() {
 			<nav>
 				<ul>
 					<li>
-						<Link to='/'>Accueil</Link>
+						<Link to='/IntegrationTest'>Accueil</Link>
 					</li>
 					<li>
 						<Link to='/register'>S'inscrire</Link>
@@ -21,7 +21,7 @@ function App() {
 				</ul>
 			</nav>
 			<Routes>
-				<Route path='/' element={<Home />} />
+				<Route path='/IntegrationTest' element={<Home />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/users' element={<Users />} />
 			</Routes>

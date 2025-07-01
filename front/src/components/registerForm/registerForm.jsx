@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export const RegisterForm = ({ onSubmit }) => {
 	const [form, setForm] = useState({
 		username: "",
@@ -26,7 +28,7 @@ export const RegisterForm = ({ onSubmit }) => {
 		}
 
 		try {
-			const response = await fetch("http://localhost:8000/users", {
+			const response = await fetch(`${SERVER_URL}/users`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

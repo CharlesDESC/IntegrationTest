@@ -2,6 +2,8 @@ import React from "react";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { DisplayInfo } from "./displayInfo";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 beforeEach(() => {
 	global.fetch = jest.fn();
 	jest.spyOn(window, "confirm").mockImplementation(() => true);
@@ -67,7 +69,7 @@ describe("DisplayInfo component", () => {
 		fireEvent.click(screen.getByText(/delete/i));
 
 		await waitFor(() => {
-			expect(fetch).toHaveBeenCalledWith("http://localhost:8000/users/1", {
+			expect(fetch).toHaveBeenCalledWith(`${SERVER_URL}/users/1`, {
 				method: "DELETE",
 			});
 		});
